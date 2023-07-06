@@ -3,6 +3,7 @@ import { deepmerge } from '@mui/utils';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import Button from '@mui/material/Button';
 
+// createThemeのあとでdeepmergeをするとうまくいかない
 const options = {
   palette: {
     primary: {
@@ -24,6 +25,17 @@ const defaultTheme = createTheme({
 export const App: React.VFC = () => {
 
   const [theme, setTheme] = useState(defaultTheme)
+
+/*
+ * 第２引数にオブジェクトを渡すと、オブジェクトのプロパティが上書きされる
+  createTheme(options, {
+    palette: {
+      primary: {
+        main: "#000"
+      }
+    }
+  })
+*/
 
   const dynamicTheme = useMemo(() => createTheme(deepmerge(options, {
     palette: {
